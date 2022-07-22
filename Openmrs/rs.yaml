@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: open-rs
+  labels:
+    app: openmrs
+spec:
+  minReadySeconds: 5
+  replicas: 5
+  selector:
+    matchLabels:
+     app: openmrs
+  template:
+    metadata:
+      name: open-rs
+      labels:
+        app: openmrs
+    spec:
+      containers:
+        - image: openmrs:latest
+          name: myopenMRS
+          ports:
+            - containerPort: 8080
+              protocol: TCP

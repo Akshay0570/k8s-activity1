@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openmrs
+  labels:
+    app: openmrs
+spec:
+  minReadySeconds: 5
+  replicas: 10
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: openmrs
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels: 
+        name: openmrs
+        version: "5.7"
+      name: myopenMRS
+    spec:
+      restartPolicy: OnFailure
