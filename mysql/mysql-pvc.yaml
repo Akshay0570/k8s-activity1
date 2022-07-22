@@ -1,0 +1,53 @@
+---
+apiVersion: vq
+kind: PersistentVolumeClaim
+metadata: 
+  labels:
+    name: mysql
+  name: mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      app: mysqldb
+  storageClassName: default
+  resources:
+    requests:
+      storage: 1Gi
+    limits:
+      storage: 2Gi
+      cpu: 256Mi
+
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql
+  labels:
+    app: mysqldb
+    version: "5.7"
+spec:
+  containers:
+    - image: mysql:8
+      name: mysqldb
+      ports:
+        - containerPor: 3306
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: rootroot
+        - name: MYSQL_DATABASE
+          value: Akdb
+        - name: MYSQL_USER
+          value: akshay
+        - name: MYSQL_PASSWORD
+          value: akshay0570  
+      volumeMounts:
+        - name: mysql-vol
+          mountPath: var/lib/mysql
+  restartPolicy: OnFailure
+  volumeMounts:
+    - name: mysql-vol
+      persistentVolumeClaim:
+        claimName: mysql-pvc
