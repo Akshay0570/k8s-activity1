@@ -4,7 +4,7 @@ LABEL purpose='practice'
 RUN git clone https://github.com/openmrs/openmrs-core.git && cd openmrs-core && mvn clean package
  
 FROM tomcat:8
-LABEL author='Practice'
+LABEL author='Akshay'
 LABEL purpose='practice'
 COPY --from=maven /openmrs-core/webapp/target/openmrs.war /usr/local/tomcat/webapps/openmrs.war
 EXPOSE 8080
