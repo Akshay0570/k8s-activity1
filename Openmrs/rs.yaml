@@ -18,7 +18,7 @@ spec:
         app: openmrs
     spec:
       containers:
-        - image: openmrs:latest
+        - image: akshay0570/open:57
           name: myopenMRS
           ports:
             - containerPort: 8080
